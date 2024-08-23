@@ -57,6 +57,7 @@
                 </nav>
             </div>
         </div>
+
         @if ($errors->any())
         <div>
             <ul>
