@@ -32,7 +32,6 @@ class NotifyEvent implements ShouldBroadcast
         ]
     ];
 }
-
     /**
      * Get the channels the event should broadcast on.
      *
