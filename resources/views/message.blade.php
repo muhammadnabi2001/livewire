@@ -13,7 +13,7 @@
 </head>
    
 
-{{-- new sthing --}}
+
 <body>
     <div class="container">
         <div class="row">
