@@ -9,7 +9,6 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     @vite('resources/js/app.js')
 </head>
-
 <body>
     <div class="container">
         <div class="row">
@@ -66,7 +65,6 @@
             </ul>
         </div>
         @endif
-
         <div class="row">
             <div class="col-5">
                 <form action="/create" enctype="multipart/form-data" method="POST">
