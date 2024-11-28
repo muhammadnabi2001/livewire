@@ -9,10 +9,11 @@ class PostComponent extends Component
 {
     public $title;
     public $description;
+    public $posts;
     public function render()
     {
-        $posts=Post::orderBy('id','desc')->get();
-        return view('livewire.post-component',compact('posts'));
+        $this->posts=Post::orderBy('id','desc')->get();
+        return view('livewire.post-component',['posts'=>$this->posts]);
     }
     public function add()
     {
@@ -26,6 +27,14 @@ class PostComponent extends Component
                 ]);
             }
         }
+    }
+    public function delete($id)
+    {
+        //dd($id);
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        $this->posts = Post::orderBy('id', 'desc')->get();
     }
 }
 

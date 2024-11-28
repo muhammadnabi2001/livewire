@@ -28,7 +28,7 @@ class PostEditComponent extends Component
         $this->post->save();
 
         session()->flash('message', 'Post muvaffaqiyatli yangilandi!');
-
+        $this->emit('postUpdated');
         return redirect('posts');
     }
 }

@@ -3,6 +3,7 @@
 use App\Livewire\CalcComponent;
 use App\Livewire\HomeComponent;
 use App\Livewire\PostComponent;
+use App\Livewire\PostDeleteComponent;
 use App\Livewire\PostEditComponent;
 use Illuminate\Support\Facades\Route;
 
