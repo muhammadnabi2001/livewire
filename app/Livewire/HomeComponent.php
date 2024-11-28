@@ -8,7 +8,6 @@ class HomeComponent extends Component
 {
     public $a = 0;
     public $perform;
-    public $result = 0;
     public $num1='';
     public $num2='';
     public function render()
@@ -23,31 +22,5 @@ class HomeComponent extends Component
     {
         $this->a--;
     }
-    public function  hisob()
-    {
-        if($this->perform =='+')
-        {
-            $this->result=$this->num1 + $this->num2;
-        }
-        if($this->perform == '-')
-        {
-        $this->result=$this->num1 - $this->num2;
-            
-        }
-        if($this->perform == '*')
-        {
-        $this->result=$this->num1 * $this->num2;
-            
-        }
-        if($this->perform == '%')
-        {
-        $this->result=$this->num1 % $this->num2;
-            
-        }
-        if($this->perform == ':')
-        {
-        $this->result=$this->num1 / $this->num2;
-            
-        }
-    }
+    
 }

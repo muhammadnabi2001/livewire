@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,5 +20,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        for ($i=1; $i < 20 ; $i++) { 
+            Post::create([
+                'title'=>'title'.$i,
+                'description'=>'description'.$i,
+            ]);
+        }
     }
 }
