@@ -94,8 +94,7 @@
                     <th>
                         <input type="submit" class="btn btn-primary" wire:click='renameall'>
                     </th>
-                </tr>
-                    
+                </tr>    
                 @endif
             @endforeach
         </tbody>
