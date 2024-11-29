@@ -14,6 +14,10 @@ class PostComponent extends Component
     public $check = false;
     public $categories;
     public $category_id;
+    public $editformpost=false;
+    public $edittitle;
+    public $editdescription;
+    public $editcategory_id;
     public function add()
     {
         $this->check = true;
@@ -50,5 +54,22 @@ class PostComponent extends Component
         $post->delete();
 
         $this->posts = Post::orderBy('id', 'desc')->get();
+    }
+    public function update(Post $post)
+    {
+        $this->editformpost=$post->id;
+        $this->edittitle=$post->title;
+        $this->editdescription=$post->description;
+    }
+    public function renameall()
+    {
+        $posts=Post::findOrFail($this->editformpost);
+        $posts->update([
+            'title'=>$this->edittitle,
+            'description'=>$this->editdescription,
+            'category_id'=>$this->editcategory_id,
+        ]);
+        $this->editformpost=false;
+        $this->all();
     }
 }
