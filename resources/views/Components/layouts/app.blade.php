@@ -15,9 +15,9 @@
                 <ul>
                     <li><a href="/" wire:navigate>Home</a></li>
                     <li><a href="/calc" wire:navigate>Calc</a></li>
-                    <li><a href="/posts" wire:navigate>Posts</a></li>
                     <li><a href="/talabalar" wire:navigate>Talabalar</a></li>
                     <li><a href="category" wire:navigate>Categoryalar</a></li>
+                    <li><a href="/posts" wire:navigate>Posts</a></li>
                 </ul>
             </div>
         </div>

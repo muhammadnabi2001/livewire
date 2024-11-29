@@ -1,15 +1,44 @@
 <div style="margin: 20px; font-family: Arial, sans-serif;">
     <h1 style="text-align: center; color: #4CAF50;">Posts</h1>
-    <input type="text" wire:model='title' placeholder="title" class="form-control mt-3">
-    <input type="text" wire:model='description' placeholder="description" class="form-control mt-3">
-    <input type="submit" wire:click='add' class="btn btn-primary mt-3" value="save">
+    <button class="btn btn-primary m-2" wire:click="{{ $check ? 'back' : 'add'}}"> {{ $check ? 'back' : 'add'}} </button>
 
+    @if ($check)
+
+    <form wire:submit.prevent="save">
+        <div class="row">
+            <div class="col-4">
+                <div class="m-2">
+                    <input type="text" class="form-control" wire:model='title' placeholder="title">
+                </div>
+    
+                <div class="m-2">
+                    <input type="text" class="form-control" wire:model='description' placeholder="description">
+                </div>
+    
+                <div class="m-2">
+                    <select class="form-control" wire:model='category_id'>
+                        <option value="">Select a category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+    
+                <div class="m-2">
+                    <input type="submit" class="btn btn-primary" value="save">
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    @endif
     <table style="width: 100%; border-collapse: collapse; margin-top: 20px; text-align: left;">
         <thead>
             <tr style="background-color: #f2f2f2; color: #333; border-bottom: 2px solid #4CAF50;">
                 <th style="padding: 12px; border: 1px solid #ddd;">#</th>
                 <th style="padding: 12px; border: 1px solid #ddd;">Title</th>
                 <th style="padding: 12px; border: 1px solid #ddd;">Description</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Category</th>
                 <th style="padding: 12px; border: 1px solid #ddd;">Status</th>
                 <th style="padding: 12px; border: 1px solid #ddd;">Actions</th>
             </tr>
@@ -20,6 +49,9 @@
                     <td style="padding: 12px; border: 1px solid #ddd;">{{ $index + 1 }}</td>
                     <td style="padding: 12px; border: 1px solid #ddd;">{{ $post->title }}</td>
                     <td style="padding: 12px; border: 1px solid #ddd;">{{ $post->description }}</td>
+                    <td>
+                        {{$post->category->name}}
+                    </td>
                     <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">
                         @if($post->is_active)
                             <span style="color: green; font-weight: bold;">Active</span>
@@ -27,6 +59,7 @@
                             <span style="color: red; font-weight: bold;">Inactive</span>
                         @endif
                     </td>
+                    
                     <td>
                         <a href="{{ route('postedit', ['id' => $post->id]) }}" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                             <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>

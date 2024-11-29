@@ -10,4 +10,8 @@ class Category extends Model
         'name',
         'is_active'
     ];
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'category_id');
+    }
 }
