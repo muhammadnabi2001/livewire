@@ -6,6 +6,8 @@ use App\Livewire\HomeComponent;
 use App\Livewire\PostComponent;
 use App\Livewire\PostDeleteComponent;
 use App\Livewire\PostEditComponent;
+use App\Livewire\PostIndexComponent;
+use App\Livewire\PostShowComponent;
 use App\Livewire\TalabaComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +21,4 @@ Route::get('posts',PostComponent::class);
 Route::get('/postedit/{id}',PostEditComponent::class)->name('postedit');
 Route::get('/talabalar',TalabaComponent::class);
 Route::get('/category',CategoryComponent::class);
+Route::get('/newpost',PostIndexComponent::class);

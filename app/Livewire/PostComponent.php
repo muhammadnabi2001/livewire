@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 
 class PostComponent extends Component
 {
-    use WithPagination; 
+    use WithPagination;
 
     public $title;
     public $description;
@@ -20,7 +20,11 @@ class PostComponent extends Component
     public $edittitle;
     public $editdescription;
     public $editcategory_id;
-    
+    public $searchtitle;
+    public $searchdescription;
+    public $searchcategory;
+
+    protected $paginationTheme = 'bootstrap';
 
     public function add()
     {
@@ -31,12 +35,25 @@ class PostComponent extends Component
     {
         $this->check = false;
     }
-
     public function render()
     {
-        $posts = Post::orderBy('id', 'desc')->get();
         $this->categories = Category::all();
-        return view('livewire.post-component', ['posts' => $posts]); 
+        
+        $query = Post::query();
+
+        if ($this->searchtitle) {
+            $query->where('title', 'LIKE', "{$this->searchtitle}%");
+        }
+        if ($this->searchdescription) {
+            $query->where('description', 'LIKE', "{$this->searchdescription}%");
+        }
+        if ($this->searchcategory) {
+            $query->where('category_id', $this->searchcategory);
+        }
+
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
+
+        return view('livewire.post-component', compact('posts'));
     }
 
     public function save()
@@ -48,14 +65,13 @@ class PostComponent extends Component
                 'category_id' => $this->category_id
             ]);
             $this->check = false;
-            $this->resetPage(); 
+            $this->reset(['title', 'description', 'category_id']);
         }
     }
 
     public function delete($id)
     {
         Post::findOrFail($id)->delete();
-        $this->resetPage(); 
     }
 
     public function update(Post $post)
@@ -75,6 +91,15 @@ class PostComponent extends Component
             'category_id' => $this->editcategory_id,
         ]);
         $this->editformpost = false;
-        $this->resetPage(); 
+    }
+    public function searchColumps()
+    {
+        // dd(123);
+        //dd($this->searchcategory, $this->searchtitle, $this->searchdescription);
+        $posts = Post::orderBy('id', 'desc')
+            ->where('description', "LIKE", "{$this->searchdescription}%")
+            ->where('title', 'LIKE', "{$this->searchtitle}%")
+            ->where('category_id', '=', "{$this->searchcategory}%")->get();
+        // $this->all();
     }
 }

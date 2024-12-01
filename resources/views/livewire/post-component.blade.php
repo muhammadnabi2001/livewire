@@ -34,6 +34,7 @@
     @endif
     <table style="width: 100%; border-collapse: collapse; margin-top: 20px; text-align: left;">
         <thead>
+            
             <tr style="background-color: #f2f2f2; color: #333; border-bottom: 2px solid #4CAF50;">
                 <th style="padding: 12px; border: 1px solid #ddd;">#</th>
                 <th style="padding: 12px; border: 1px solid #ddd;">Title</th>
@@ -42,7 +43,23 @@
                 <th style="padding: 12px; border: 1px solid #ddd;">Status</th>
                 <th style="padding: 12px; border: 1px solid #ddd;">Actions</th>
             </tr>
-        
+            <tr>
+                <th></th>
+                <th>
+                    <input type="text" wire:model="searchtitle" class="form-controle" placeholder="Search by title" wire:keydown='searchColumps'>
+                </th>
+                <th>
+                    <input type="text" wire:model="searchdescription" class="form-control" placeholder="seach by description" wire:keydown='searchColumps'>
+                </th>
+                <th>
+                    <select class="form-control" wire:model='searchcategory' wire:change='searchColumps'>
+                        <option value="">Select a category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" >{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </th>
+            </tr>
         </thead>
         <tbody>
             @foreach($posts as $index => $post)
@@ -99,4 +116,5 @@
             @endforeach
         </tbody>
     </table>
+    {{$posts->links()}}
 </div>
