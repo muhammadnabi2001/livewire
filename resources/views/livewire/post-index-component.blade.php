@@ -141,135 +141,119 @@
                   <ul>
                     <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">John Doe</a></li>
                     <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2020-01-01">Jan 1, 2022</time></a></li>
-                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">12 Comments</a></li>
+                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">{{$postdetail->comments->count()}} Comments</a></li>
+                    <li class="d-flex align-items-center"> <a wire:click='like({{$postdetail->id}})'><i class="bi bi-hand-thumbs-up"></i></a> {{$postdetail->likes->where('status',1)->count()}}</li>
+                    <li class="d-flex align-items-center"> <a wire:click="dislike({{$postdetail->id}})"><i class="bi bi-hand-thumbs-down"></i></a>{{$postdetail->likes->where('status',0)->count()}}</li>
                   </ul>
                 </div><!-- End meta top -->
 
                 
 
-                <div class="meta-bottom">
-                  <i class="bi bi-folder"></i>
-                  <ul class="cats">
-                    <li><a href="#">Business</a></li>
-                  </ul>
-
-                  <i class="bi bi-tags"></i>
-                  <ul class="tags">
-                    <li><a href="#">Creative</a></li>
-                    <li><a href="#">Tips</a></li>
-                    <li><a href="#">Marketing</a></li>
-                  </ul>
-                </div><!-- End meta bottom -->
+                
 
               </article>
 
             </div>
           </section><!-- /Blog Details Section -->
 
-          <!-- Blog Comments Section -->
+        
+          @php
+function recursion($comment, $result,$postdetail) {
+    // Agar replylar mavjud bo'lsa
+    if ($comment->replies->count() > 0) {
+        foreach ($comment->replies as $reply) {
+            echo "<div id='comment-reply-{$reply->id}' class='comment comment-reply'>";
+            echo "<div class='d-flex'>";
+            echo "<div class='comment-img'><img src='assets/img/blog/comments-2.jpg' alt=''></div>";
+            echo "<div>";
+            echo "<h5><a href=''>someone</a> <a wire:click='answer({$reply->id})' class='reply'><i class='bi bi-reply-fill'></i> Reply</a></h5>";
+            echo "<time datetime='{$reply->created_at}'>" . $reply->created_at->format('d M, Y') . "</time>";
+            echo "<p>{$reply->body}</p>";
+
+            // $result bilan reply idni solishtirish
+            if ($result == $reply->id) {
+                echo "<section id='comment-form' class='comment-form section'>";
+                echo "<div class='container'>";
+                echo "<form wire:submit.prevent='commentanswer({$postdetail->id},{$reply->id})'>";
+                echo "<h4>Post Reply</h4>";
+                echo "<textarea wire:model='body' placeholder='Write your reply here...'></textarea>";
+                echo "<button type='submit'>Submit</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</section>";
+            }
+
+            echo "</div>";
+            echo "</div>";
+
+            // Har bir reply uchun yana uning replylarini ko'rsatish
+            recursion($reply, $result,$postdetail); // `$result`ni o'tkazish
+            echo "</div>"; // Replyni tugatish
+        }
+    }
+}
+@endphp
+
           <section id="blog-comments" class="blog-comments section">
 
             <div class="container">
 
               <h4 class="comments-count">{{$postdetail->Comments->count()}} Comments</h4>
-              @foreach($postdetail->comments as $comment)
+              @php
+                $parentcomments=$postdetail->comments->where('parent_id',0);
+              @endphp
+              @foreach($parentcomments as $comment)
                 
               <div id="comment-1" class="comment">
                 <div class="d-flex">
                   <div class="comment-img"><img src="assets/img/blog/comments-1.jpg" alt=""></div>
                   <div>
-                    <h5><a href="">Georgia Reader</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
+                    <h5><a href="">Georgia Reader</a> <a wire:click="answer({{$comment->id}})" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
                     <time datetime="2020-01-01">{{$comment->created_at}} </time>
                    <p>{{$comment->body}} </p>
+                   
+                @if($result==$comment->id)
+                   <section id="comment-form" class="comment-form section">
+                      
+                    <div class="container">
+        
+                      <form wire:submit.prevent='commentanswer({{$postdetail->id}},{{$comment->id}})'>
+        
+                        <h4>Post Comment</h4>
+                        <div class="row">
+                          
+                        <div class="row">
+                          <div class="col form-group">
+                            <textarea wire:model="body" class="form-control" placeholder="Your answer*"></textarea>
+                          </div>
+                        </div>
+        
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Your answer</button>
+                        </div>
+        
+                      </form>
+        
+                    </div>
+                  </section><!-- /Comment Form Section -->
+                  @endif
+                  @php
+                recursion($comment,$result,$postdetail)
+                @endphp
                   </div>
                 </div>
               </div><!-- End comment #1 -->
+              
               @endforeach
-
-              <div id="comment-2" class="comment">
-                <div class="d-flex">
-                  <div class="comment-img"><img src="assets/img/blog/comments-2.jpg" alt=""></div>
-                  <div>
-                    <h5><a href="">Aron Alvarado</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                    <time datetime="2020-01-01">01 Jan,2022</time>
-                    <p>
-                      Ipsam tempora sequi voluptatem quis sapiente non. Autem itaque eveniet saepe. Officiis illo ut beatae.
-                    </p>
-                  </div>
-                </div>
-
-                <div id="comment-reply-1" class="comment comment-reply">
-                  <div class="d-flex">
-                    <div class="comment-img"><img src="assets/img/blog/comments-3.jpg" alt=""></div>
-                    <div>
-                      <h5><a href="">Lynda Small</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                      <time datetime="2020-01-01">01 Jan,2022</time>
-                      <p>
-                        Enim ipsa eum fugiat fuga repellat. Commodi quo quo dicta. Est ullam aspernatur ut vitae quia mollitia id non. Qui ad quas nostrum rerum sed necessitatibus aut est. Eum officiis sed repellat maxime vero nisi natus. Amet nesciunt nesciunt qui illum omnis est et dolor recusandae.
-
-                        Recusandae sit ad aut impedit et. Ipsa labore dolor impedit et natus in porro aut. Magnam qui cum. Illo similique occaecati nihil modi eligendi. Pariatur distinctio labore omnis incidunt et illum. Expedita et dignissimos distinctio laborum minima fugiat.
-
-                        Libero corporis qui. Nam illo odio beatae enim ducimus. Harum reiciendis error dolorum non autem quisquam vero rerum neque.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div id="comment-reply-2" class="comment comment-reply">
-                    <div class="d-flex">
-                      <div class="comment-img"><img src="assets/img/blog/comments-4.jpg" alt=""></div>
-                      <div>
-                        <h5><a href="">Sianna Ramsay</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                        <time datetime="2020-01-01">01 Jan,2022</time>
-                        <p>
-                          Et dignissimos impedit nulla et quo distinctio ex nemo. Omnis quia dolores cupiditate et. Ut unde qui eligendi sapiente omnis ullam. Placeat porro est commodi est officiis voluptas repellat quisquam possimus. Perferendis id consectetur necessitatibus.
-                        </p>
-                      </div>
-                    </div>
-
-                  </div><!-- End comment reply #2-->
-
-                </div><!-- End comment reply #1-->
-
-              </div><!-- End comment #2-->
-
-              <div id="comment-3" class="comment">
-                <div class="d-flex">
-                  <div class="comment-img"><img src="assets/img/blog/comments-5.jpg" alt=""></div>
-                  <div>
-                    <h5><a href="">Nolan Davidson</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                    <time datetime="2020-01-01">01 Jan,2022</time>
-                    <p>
-                      Distinctio nesciunt rerum reprehenderit sed. Iste omnis eius repellendus quia nihil ut accusantium tempore. Nesciunt expedita id dolor exercitationem aspernatur aut quam ut. Voluptatem est accusamus iste at.
-                      Non aut et et esse qui sit modi neque. Exercitationem et eos aspernatur. Ea est consequuntur officia beatae ea aut eos soluta. Non qui dolorum voluptatibus et optio veniam. Quam officia sit nostrum dolorem.
-                    </p>
-                  </div>
-                </div>
-
-              </div><!-- End comment #3 -->
-
-              <div id="comment-4" class="comment">
-                <div class="d-flex">
-                  <div class="comment-img"><img src="assets/img/blog/comments-6.jpg" alt=""></div>
-                  <div>
-                    <h5><a href="">Kay Duggan</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5>
-                    <time datetime="2020-01-01">01 Jan,2022</time>
-                    <p>
-                      Dolorem atque aut. Omnis doloremque blanditiis quia eum porro quis ut velit tempore. Cumque sed quia ut maxime. Est ad aut cum. Ut exercitationem non in fugiat.
-                    </p>
-                  </div>
-                </div>
-
-              </div><!-- End comment #4 -->
-
-            </div>
-
+              
+              
           </section><!-- /Blog Comments Section -->
 
           <!-- Comment Form Section -->
           <section id="comment-form" class="comment-form section">
             <div class="container">
 
-              <form wire:submit.prevent='comment({{$postdetail}})'>
+              <form wire:submit.prevent='comment({{$postdetail->id}})'>
 
                 <h4>Post Comment</h4>
                 <div class="row">
