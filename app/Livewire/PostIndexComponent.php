@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\View;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,6 +21,7 @@ class PostIndexComponent extends Component
     public $parentid=null;
     public $result=false;
     public $ilike;
+    public $view;
 
     public function render()
     {
@@ -28,8 +30,16 @@ class PostIndexComponent extends Component
         return view('livewire.post-index-component', compact('posts','categories'))
             ->layout('components.layouts.main');
     }
-    public function show($id)
+    public function show(Request $request,$id)
     {
+
+        $this->view=View::where('post_id',$id)->where('user_ip',$request->ip())->first();
+        if (!$this->view) {
+            View::create([
+                'post_id'=>$id,
+                'user_ip'=>$request->ip(),
+            ]);
+        }
         $this->postdetail=Post::findOrFail($id);
         //dd($id);
 

@@ -144,6 +144,7 @@
                     <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">{{$postdetail->comments->count()}} Comments</a></li>
                     <li class="d-flex align-items-center"> <a wire:click='like({{$postdetail->id}})'><i class="bi bi-hand-thumbs-up"></i></a> {{$postdetail->likes->where('status',1)->count()}}</li>
                     <li class="d-flex align-items-center"> <a wire:click="dislike({{$postdetail->id}})"><i class="bi bi-hand-thumbs-down"></i></a>{{$postdetail->likes->where('status',0)->count()}}</li>
+                    <li class="d-flex align-items-center"><i class="bi bi-eye-fill"></i> <a href="blog-details.html">{{$postdetail->views->count()}}</a></li>
                   </ul>
                 </div><!-- End meta top -->
 
