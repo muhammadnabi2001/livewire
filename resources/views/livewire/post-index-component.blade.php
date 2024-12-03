@@ -143,7 +143,7 @@
                     <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2020-01-01">Jan 1, 2022</time></a></li>
                     <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">{{$postdetail->comments->count()}} Comments</a></li>
                     <li class="d-flex align-items-center"> <a wire:click='like({{$postdetail->id}})'><i class="bi bi-hand-thumbs-up"></i></a> {{$postdetail->likes->where('status',1)->count()}}</li>
-                    <li class="d-flex align-items-center"> <a wire:click="dislike({{$postdetail->id}})"><i class="bi bi-hand-thumbs-down"></i></a>{{$postdetail->likes->where('status',0)->count()}}</li>
+                    <li class="d-flex align-items-center"> <a wire:click="dislike({{$postdetail->id}})"><i class="bi bi-hand-thumbs-down" ></i></a>{{$postdetail->likes->where('status',0)->count()}}</li>
                     <li class="d-flex align-items-center"><i class="bi bi-eye-fill"></i> <a href="blog-details.html">{{$postdetail->views->count()}}</a></li>
                   </ul>
                 </div><!-- End meta top -->
@@ -160,7 +160,6 @@
         
           @php
 function recursion($comment, $result,$postdetail) {
-    // Agar replylar mavjud bo'lsa
     if ($comment->replies->count() > 0) {
         foreach ($comment->replies as $reply) {
             echo "<div id='comment-reply-{$reply->id}' class='comment comment-reply'>";
@@ -171,25 +170,22 @@ function recursion($comment, $result,$postdetail) {
             echo "<time datetime='{$reply->created_at}'>" . $reply->created_at->format('d M, Y') . "</time>";
             echo "<p>{$reply->body}</p>";
 
-            // $result bilan reply idni solishtirish
             if ($result == $reply->id) {
-                echo "<section id='comment-form' class='comment-form section'>";
+                echo "<section>";
                 echo "<div class='container'>";
                 echo "<form wire:submit.prevent='commentanswer({$postdetail->id},{$reply->id})'>";
                 echo "<h4>Post Reply</h4>";
-                echo "<textarea wire:model='body' placeholder='Write your reply here...'></textarea>";
-                echo "<button type='submit'>Submit</button>";
+                echo "<input wire:model='body' class='form-control' placeholder='Write your reply here...'></input>";
+                echo "<button type='submit'>Send</button>";
                 echo "</form>";
                 echo "</div>";
                 echo "</section>";
             }
-
             echo "</div>";
             echo "</div>";
 
-            // Har bir reply uchun yana uning replylarini ko'rsatish
-            recursion($reply, $result,$postdetail); // `$result`ni o'tkazish
-            echo "</div>"; // Replyni tugatish
+            recursion($reply, $result,$postdetail); 
+            echo "</div>"; 
         }
     }
 }
@@ -214,8 +210,7 @@ function recursion($comment, $result,$postdetail) {
                    <p>{{$comment->body}} </p>
                    
                 @if($result==$comment->id)
-                   <section id="comment-form" class="comment-form section">
-                      
+                   <section id="">            
                     <div class="container">
         
                       <form wire:submit.prevent='commentanswer({{$postdetail->id}},{{$comment->id}})'>
@@ -224,17 +219,14 @@ function recursion($comment, $result,$postdetail) {
                         <div class="row">
                           
                         <div class="row">
-                          <div class="col form-group">
-                            <textarea wire:model="body" class="form-control" placeholder="Your answer*"></textarea>
+                          <div class="col-12">
+                            <input wire:model="body" class="form-control" placeholder="Your answer*"></input>
                           </div>
                         </div>
-        
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-primary">Your answer</button>
+                        <div class="">
+                          <button type="submit" class="btn btn-primary">Send</button>
                         </div>
-        
                       </form>
-        
                     </div>
                   </section><!-- /Comment Form Section -->
                   @endif

@@ -8,7 +8,7 @@
   @livewireStyles
 </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <h1>Hello</h1>
             <div class="col-12">
@@ -19,6 +19,9 @@
                     <li><a href="category" wire:navigate>Categoryalar</a></li>
                     <li><a href="/posts" wire:navigate>Posts</a></li>
                     <li><a href="/newpost" wire:navigate>New Posts</a></li>
+                    <li><a href="/group" wire:navigate>Groups</a></li>
+                    <li><a href="/task" wire:navigate>Tasks</a></li>
+                    <li><a href="/davomat" wire:navigate>Davomat</a></li>
                 </ul>
             </div>
         </div>
@@ -28,4 +31,5 @@
     </div>
     @livewireScripts
   </body>
+  <script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v1.x.x/dist/livewire-sortable.js"></script>
 </html>
