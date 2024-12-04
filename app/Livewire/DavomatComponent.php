@@ -45,15 +45,21 @@ class DavomatComponent extends Component
         //     'status'=>$this->status
         // ]);
     }
-    public function store($kun,$userId)
-    {
-        $this->fullDate = Carbon::parse($this->now)->format("Y-m") . '-' . $kun;
+    public function store($kun, $userId)
+{
+    $this->fullDate = Carbon::parse($this->now)->format("Y-m") . '-' . $kun;
 
-        Davomat::create([
-                 'user_id'=>$userId,
-                 'date'=>$this->fullDate,
-                 'status'=>$this->status
-             ]);
-             $this->status='';
-    }
+    Davomat::updateOrCreate(
+        [
+            'user_id' => $userId,
+            'date' => $this->fullDate,
+        ],
+        [
+            'status' => $this->status 
+        ]
+    );
+
+    $this->status = ''; 
+}
+
 }
