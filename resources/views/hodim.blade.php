@@ -76,7 +76,6 @@
             <div class="col-12">
                 <div id="messageList">
                     <li>
-
                         <table class="table">
                             <thead>
                                 <tr>

@@ -92,9 +92,10 @@
                     <li>
                         <div class="row mt-7">
                             <div class="col-5">
-                                <img src="{{ asset('img_uploaded/'.$chat->img) }}" style="object-fit: cover; width: 100px; height: 100px;" alt="...">
+                                <img src="{{ asset('img_uploaded/'.$chat->img) }}"
+                                    style="object-fit: cover; width: 100px; height: 100px;" alt="...">
                                 {{$chat->title}}
-        
+
                             </div>
                         </div>
                     </li>

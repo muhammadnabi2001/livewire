@@ -22,7 +22,6 @@ class MessageEvent implements ShouldBroadcast
     {
         $this->message=$message;
     }
-
     /**
      * Get the channels the event should broadcast on.
      *
