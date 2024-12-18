@@ -10,8 +10,8 @@ class CheckController extends Controller
 {
     public function check()
     {
-        $chatlar=Check::orderBy('id','desc')->get();
-        return view('check',['chatlar'=>$chatlar]);
+        $chatlar = Check::orderBy('id', 'desc')->get();
+        return view('check', ['chatlar' => $chatlar]);
     }
     public function create(Request $request)
     {
@@ -26,11 +26,11 @@ class CheckController extends Controller
 
             $file->move('img_uploaded/', $filename);
         }
-       $Message= Check::create([
-            'title'=>$request->title,
-            'img'=>$filename
+        $Message = Check::create([
+            'title' => $request->title,
+            'img' => 'img_uploaded/' . $filename
         ]);
-        broadcast(new MessageEvent($Message));        
+        broadcast(new MessageEvent($Message));
         return redirect()->back();
     }
 }

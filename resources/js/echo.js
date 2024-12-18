@@ -17,7 +17,13 @@ window.Echo = new Echo({
         console.log(e);
         const messageList = document.getElementById('messageList');
         const newMessage = document.createElement('li');
-        newMessage.innerText = e.message.text;
+        const newImage = document.createElement('img');
+        newImage.src = e.message.img;
+        newImage.width = 100;
+        messageList.prepend(newImage);
+
+
+        newMessage.innerText = e.message.title;
         messageList.prepend(newMessage);
     });
 

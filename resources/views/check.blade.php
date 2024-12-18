@@ -57,7 +57,6 @@
                 </nav>
             </div>
         </div>
-
         @if ($errors->any())
         <div>
             <ul>
@@ -88,20 +87,19 @@
         </div>
         <div class="row m-5">
             <div class="col-12">
-                <ul id="messageList">
+                <div id="messageList">
                     @foreach($chatlar as $chat)
                     <li>
                         <div class="row mt-7">
                             <div class="col-5">
-                                <img src="{{ asset('img_uploaded/'.$chat->img) }}"
+                                <img src="{{ asset($chat->img) }}"
                                     style="object-fit: cover; width: 100px; height: 100px;" alt="...">
-                                {{$chat->title}}
-
+                                {{ $chat->title }}
                             </div>
                         </div>
                     </li>
                     @endforeach
-                </ul>
+                </div>
             </div>
         </div>
     </div>
