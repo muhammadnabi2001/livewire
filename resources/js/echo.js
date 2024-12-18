@@ -21,8 +21,7 @@ window.Echo = new Echo({
         newImage.src = e.message.img;
         newImage.width = 100;
         messageList.prepend(newImage);
-
-
+        
         newMessage.innerText = e.message.title;
         messageList.prepend(newMessage);
     });
