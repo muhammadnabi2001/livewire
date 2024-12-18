@@ -83,6 +83,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Fio</th>
                                     <th scope="col">Manzil</th>
+                                    <th>Yoshi</th>
                                     <th scope="col">tel</th>
                                     <th scope="col">Handle</th>
                                 </tr>
@@ -93,6 +94,7 @@
                                     <th scope="row">1</th>
                                     <td>{{$hodim->name}}</td>
                                     <td>{{$hodim->manzil}}</td>
+                                    <td>{{$hodim->yosh}}</td>
                                     <td>{{$hodim->tel}}</td>
                                 </tr>
                             </tbody>
