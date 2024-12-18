@@ -4,9 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Group;
+use App\Models\Masalliq;
+use App\Models\Ovqat;
+use App\Models\OvqatMasalliq;
 use App\Models\Post;
 use App\Models\Talaba;
 use App\Models\Task;
+use App\Models\Tulov;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,7 +23,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        for ($i=1; $i < 10; $i++) { 
+        for ($i=1; $i <= 30; $i++) { 
             User::factory()->create([
                 'name' =>fake()->name(),
                 'email' => fake()->email(),
@@ -58,6 +62,28 @@ class DatabaseSeeder extends Seeder
             Task::create([
                 'name'=>'Task'.$i,
                 'status'=>rand(1,4)
+            ]);
+        }
+        for ($i=1; $i <=6 ; $i++) { 
+            Ovqat::create([
+                'name'=>'Ovqat'.$i
+            ]);
+        }
+        for ($i=1; $i <=20 ; $i++) { 
+            Masalliq::create([
+                'name'=>'Masalliq'.$i
+            ]);
+        }
+        for ($i=1; $i <=6 ; $i++) { 
+            OvqatMasalliq::create([
+                'ovqat_id'=>$i,
+                'masalliq_id'=>rand(1,20)
+            ]);
+        }
+        for ($i=0; $i <=30 ; $i++) { 
+            Tulov::create([
+                'user_id'=>rand(1,30),
+                'summa'=>rand(100,5000000)
             ]);
         }
     }

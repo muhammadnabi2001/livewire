@@ -58,4 +58,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Davomat::class);
     }
+    public function tulovs()
+    {
+        return $this->hasMany(Tulov::class);
+    }
 }

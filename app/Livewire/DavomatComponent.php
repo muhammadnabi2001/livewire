@@ -48,7 +48,6 @@ class DavomatComponent extends Component
     public function store($kun, $userId)
 {
     $this->fullDate = Carbon::parse($this->now)->format("Y-m") . '-' . $kun;
-
     Davomat::updateOrCreate(
         [
             'user_id' => $userId,

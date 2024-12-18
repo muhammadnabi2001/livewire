@@ -22,6 +22,10 @@
                     <li><a href="/group" wire:navigate>Groups</a></li>
                     <li><a href="/task" wire:navigate>Tasks</a></li>
                     <li><a href="/davomat" wire:navigate>Davomat</a></li>
+                    <li><a href="/ovqatlar" wire:navigate>Ovqatlar</a></li>
+                    <li><a href="/users" wire:navigate>Users</a></li>
+                    <li><a href="/check">Check</a></li>
+                    <li><a href="/hodim">Hodim</a></li>
                 </ul>
             </div>
         </div>
