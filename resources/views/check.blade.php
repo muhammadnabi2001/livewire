@@ -87,7 +87,7 @@
         </div>
         <div class="row m-5">
             <div class="col-12">
-                <div id="messageList">
+                <ul id="messageList">
                     @foreach($chatlar as $chat)
                     <li>
                         <div class="row mt-7">
@@ -99,7 +99,7 @@
                         </div>
                     </li>
                     @endforeach
-                </div>
+                </ul>
             </div>
         </div>
     </div>
