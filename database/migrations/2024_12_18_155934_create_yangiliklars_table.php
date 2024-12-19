@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('yangiliklars', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('description');
+            $table->string('img');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

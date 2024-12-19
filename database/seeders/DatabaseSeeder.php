@@ -12,6 +12,7 @@ use App\Models\Talaba;
 use App\Models\Task;
 use App\Models\Tulov;
 use App\Models\User;
+use App\Models\Yangiliklar;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -84,6 +85,13 @@ class DatabaseSeeder extends Seeder
             Tulov::create([
                 'user_id'=>rand(1,30),
                 'summa'=>rand(100,5000000)
+            ]);
+        }
+        for ($i=1; $i <=10; $i++) { 
+            Yangiliklar::create([
+                'title'=>'title'.$i,
+                'description'=>"description".$i,
+                'img'=>'2024-12-18_1734510556.png'
             ]);
         }
     }

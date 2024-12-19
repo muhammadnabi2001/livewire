@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CheckController;
 use App\Http\Controllers\HodimController;
+use App\Http\Controllers\YangiliklarController;
 use App\Livewire\CalcComponent;
 use App\Livewire\CategoryComponent;
 use App\Livewire\DavomatComponent;
@@ -37,3 +38,5 @@ Route::get('/users',UserComponent::class);
 Route::get('check',[CheckController::class,'check'])->name('check');
 Route::post('create',[CheckController::class,'create'])->name('create');
 Route::get('hodim',[HodimController::class,'hodim'])->name('hodim');
+Route::get('news',[YangiliklarController::class,'index'])->name('news');
+Route::get('open/{yangilik}',[YangiliklarController::class,'open'])->name('open');
