@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\MessageEvent;
 use App\Events\NotifyEvent;
 use App\Models\Yangiliklar;
 use Illuminate\Http\Request;
@@ -42,7 +41,7 @@ class YangiliklarController extends Controller
         'description' => $request->description,
         'img' => 'img_uploaded/' . $filename
     ]);
-    broadcast(new MessageEvent($Message));
+    broadcast(new NotifyEvent($Message));
     return redirect()->back();
     }
 }

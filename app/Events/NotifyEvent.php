@@ -31,7 +31,7 @@ class NotifyEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('news'),
+            new Channel('yangilik'),
         ];
     }
     

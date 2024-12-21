@@ -326,19 +326,22 @@
             </div>
             <div class="row m-5" class="form-control">
               <section class="col-lg-12 connectedSortable">
-                    <div id="messageList">
-                        @foreach($news as $new)
-                        <li>
-                            <div class="row mt-7">
-                                <div class="col-5">
-                                  <img src="{{asset($new->img)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                    {{ $new->title }}
-                                </div>
+                <ul id="newsMessage">
+                    <!-- Yangi yangiliklar shu yerga qo'shiladi -->
+                    @foreach($news as $new)
+                    <li>
+                        <div class="row mt-7">
+                            <div class="col-5">
+                                <img src="{{ asset($new->img) }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <strong>{{ $new->title }}</strong><br>
+                                <p>{{ $new->description }}</p>
                             </div>
-                        </li>
-                        @endforeach
-                    </div>
-                </section>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+            </section>
+            
             </div>
               
         </div><!-- /.container-fluid -->
