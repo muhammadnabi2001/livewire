@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageEvent;
+use App\Events\NotifyEvent;
 use App\Models\Yangiliklar;
+use Illuminate\Http\Request;
 
 class YangiliklarController extends Controller
 {
@@ -17,6 +20,29 @@ class YangiliklarController extends Controller
       // dd($yangilik->title);
       $yangilik->status=2;
       $yangilik->save();
+      broadcast(new NotifyEvent($yangilik));
       return redirect()->back();
+    }
+    public function createnew(Request $request)
+    {
+      $request->validate([
+        'title' => 'required|string',
+        'description'=>'required|string',
+        'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+    if ($request->hasFile('img')) {
+        $file = $request->file('img');
+        $extension = $file->getClientOriginalExtension();
+        $filename = date("Y-m-d") . '_' . time() . '.' . $extension;
+
+        $file->move('img_uploaded/', $filename);
+    }
+    $Message = Yangiliklar::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'img' => 'img_uploaded/' . $filename
+    ]);
+    broadcast(new MessageEvent($Message));
+    return redirect()->back();
     }
 }

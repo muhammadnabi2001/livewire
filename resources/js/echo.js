@@ -25,4 +25,18 @@ window.Echo = new Echo({
         newMessage.innerText = e.message.title;
         messageList.prepend(newMessage);
     });
+    window.Echo.channel('news')
+    .listen('NotifyEvent', (e) => {
+        console.log(e);  // Ma'lumotni tekshirib ko'ring
+        if (e.news.status === 2) {
+            const newsElement = document.getElementById(`news-${e.news.id}`);
+            if (newsElement) {
+                newsElement.remove();  // Yangilikni ro'yxatdan olib tashlash
+            }
+        }
+    });
+
+
+
+
 

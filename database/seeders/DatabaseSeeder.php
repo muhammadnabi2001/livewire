@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
             Yangiliklar::create([
                 'title'=>'title'.$i,
                 'description'=>"description".$i,
-                'img'=>'2024-12-18_1734510556.png'
+                'img'=>'img_uploaded/2024-12-18_1734510556.png'
             ]);
         }
     }
