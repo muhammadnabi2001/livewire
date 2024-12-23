@@ -22,6 +22,16 @@ class NotifyEvent implements ShouldBroadcast
     {
         $this->news=$news;
     }
+    public function broadcastWith()
+{
+    return [
+        'message' => [
+            'title' => $this->news->title,
+            'description' => $this->news->description,
+            'img' => $this->news->img,
+        ]
+    ];
+}
 
     /**
      * Get the channels the event should broadcast on.

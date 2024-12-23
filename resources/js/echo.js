@@ -26,29 +26,41 @@ window.Echo = new Echo({
         messageList.prepend(newMessage);
     });
 
+    // window.Echo.channel('yangilik')
+    // window.Echo.channel('yangilik').listen('NotifyEvent', (e) => { console.log(e); });
+
+    // .listen('NotifyEvent', (e) => {
+    //     console.log(e);
+    //     const messageList = document.getElementById('newsMessage');
+
+    //     const newMessage = document.createElement('li');
+
+    //     const newImage = document.createElement('img');
+    //     newImage.src = e.message.img;
+    //     newImage.width = 100;
+
+    //     newMessage.appendChild(newImage);
+    //     newMessage.appendChild(document.createTextNode(`${e.message.title} - ${e.message.description}`));
+
+    //     messageList.prepend(newMessage);
+    // });
+
     window.Echo.channel('yangilik')
     .listen('NotifyEvent', (e) => {
-        console.log(e);
+        console.log(e);  
         const messageList = document.getElementById('newsMessage');
-        
+
         const newMessage = document.createElement('li');
-        
+
         const newImage = document.createElement('img');
-        newImage.src = e.message.img;
+        newImage.src = e.img; 
         newImage.width = 100;
 
-        newMessage.innerHTML = `
-            <strong>${e.message.title}</strong><br>
-            <p>${e.message.description}</p>  <!-- Description qo'shildi -->
-        `;
-        
-        messageList.prepend(newImage);
-        
-        // Xabarni qo'shish
+        newMessage.appendChild(newImage);
+        newMessage.appendChild(document.createTextNode(`${e.title} - ${e.description}`));
         messageList.prepend(newMessage);
     });
 
-    
 
 
 

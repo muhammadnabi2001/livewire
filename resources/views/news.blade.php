@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  @vite('resources/js/app.js')
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -83,6 +85,7 @@
             <span class="badge badge-danger navbar-badge">{{$news->count()}}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            
             @foreach($news as $new)
                 <a href="{{ route('open', $new->id) }}" class="dropdown-item" id="news-{{$new->id}}">
                     <div class="media">
