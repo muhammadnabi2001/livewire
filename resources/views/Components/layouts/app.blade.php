@@ -27,6 +27,7 @@
                     <li><a href="/check">Check</a></li>
                     <li><a href="/hodim">Hodim</a></li>
                     <li><a href="/news">News</a></li>
+                    <li><a href="/chat">Chat</a></li>
                 </ul>
             </div>
         </div>

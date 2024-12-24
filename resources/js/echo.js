@@ -12,8 +12,8 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
 });
-    window.Echo.channel('xabar')
-    .listen('MessageEvent',(e)=>{
+window.Echo.channel('xabar')
+    .listen('MessageEvent', (e) => {
         console.log(e);
         const messageList = document.getElementById('messageList');
         const newMessage = document.createElement('li');
@@ -21,45 +21,55 @@ window.Echo = new Echo({
         newImage.src = e.message.img;
         newImage.width = 100;
         messageList.prepend(newImage);
-        
+
         newMessage.innerText = e.message.title;
         messageList.prepend(newMessage);
     });
+console.log(chatId);
+window.Echo.channel(`chat.${chatId}`)
+    .listen('ChatEvent', (e) => {
+        console.log(e);
+        const messageList = document.getElementById('chatList');
+        const newMessage = document.createElement('li');
+        newMessage.innerHTML = `<li class="list-group-item">${e.text}</li>`;
+        messageList.prepend(newMessage);
+    });
 
-    // window.Echo.channel('yangilik')
-    // window.Echo.channel('yangilik').listen('NotifyEvent', (e) => { console.log(e); });
+// window.Echo.channel('yangilik')
+// window.Echo.channel('yangilik').listen('NotifyEvent', (e) => { console.log(e); });
 
-    // .listen('NotifyEvent', (e) => {
-    //     console.log(e);
-    //     const messageList = document.getElementById('newsMessage');
+// .listen('NotifyEvent', (e) => {
+//     console.log(e);
+//     const messageList = document.getElementById('newsMessage');
 
-    //     const newMessage = document.createElement('li');
+//     const newMessage = document.createElement('li');
 
-    //     const newImage = document.createElement('img');
-    //     newImage.src = e.message.img;
-    //     newImage.width = 100;
+//     const newImage = document.createElement('img');
+//     newImage.src = e.message.img;
+//     newImage.width = 100;
 
-    //     newMessage.appendChild(newImage);
-    //     newMessage.appendChild(document.createTextNode(`${e.message.title} - ${e.message.description}`));
+//     newMessage.appendChild(newImage);
+//     newMessage.appendChild(document.createTextNode(`${e.message.title} - ${e.message.description}`));
 
-    //     messageList.prepend(newMessage);
-    // });
+//     messageList.prepend(newMessage);
+// });
 
-    window.Echo.channel('yangilik')
+window.Echo.channel('yangilik')
     .listen('NotifyEvent', (e) => {
-        console.log(e);  
+        console.log(e);
         const messageList = document.getElementById('newsMessage');
 
         const newMessage = document.createElement('li');
 
         const newImage = document.createElement('img');
-        newImage.src = e.img; 
+        newImage.src = e.img;
         newImage.width = 100;
 
         newMessage.appendChild(newImage);
         newMessage.appendChild(document.createTextNode(`${e.title} - ${e.description}`));
         messageList.prepend(newMessage);
     });
+
 
 
 

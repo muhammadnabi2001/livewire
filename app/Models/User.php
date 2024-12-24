@@ -62,4 +62,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tulov::class);
     }
+    public function fromChats()
+    {
+        return $this->hasMany(ChatId::class, 'from_id');
+    }
+
+    public function toChats()
+    {
+        return $this->hasMany(ChatId::class, 'to_id');
+    }
+    public function messages()
+    {
+        return $this->hasMany(Messages::class, 'sender_id');
+    }
 }
